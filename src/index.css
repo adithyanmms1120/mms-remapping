@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary colors - Warm golden and burgundy */
+    --background: 43 100% 83%; /* #fdf3b7 */
+    --foreground: 352 63% 20%; /* rgb(83, 19, 27) */
+
+    --card: 43 100% 83%;
+    --card-foreground: 352 63% 20%;
+
+    --popover: 43 100% 83%;
+    --popover-foreground: 352 63% 20%;
+
+    --primary: 352 63% 20%; /* Burgundy */
+    --primary-foreground: 43 100% 83%;
+
+    --secondary: 43 80% 75%;
+    --secondary-foreground: 352 63% 20%;
+
+    --muted: 43 60% 70%;
+    --muted-foreground: 352 63% 35%;
+
+    --accent: 352 63% 25%;
+    --accent-foreground: 43 100% 83%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 43 100% 83%;
+
+    --border: 352 30% 40%;
+    --input: 352 30% 40%;
+    --ring: 352 63% 20%;
+
+    --radius: 0.75rem;
+
+    /* Custom design tokens */
+    --font-display: 'Poppins', system-ui, sans-serif;
+    --font-body: 'Poppins', system-ui, sans-serif;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(43 100% 83%) 0%, hsl(40 90% 75%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(352 63% 20%) 0%, hsl(352 63% 30%) 100%);
+    
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(352 63% 20% / 0.15);
+    --shadow-strong: 0 20px 60px -15px hsl(352 63% 20% / 0.3);
+    --shadow-glow: 0 0 40px hsl(43 100% 83% / 0.3);
+
+    /* Sidebar */
+    --sidebar-background: 352 63% 20%;
+    --sidebar-foreground: 43 100% 83%;
+    --sidebar-primary: 43 100% 83%;
+    --sidebar-primary-foreground: 352 63% 20%;
+    --sidebar-accent: 352 63% 25%;
+    --sidebar-accent-foreground: 43 100% 83%;
+    --sidebar-border: 352 40% 30%;
+    --sidebar-ring: 43 100% 83%;
+  }
+
+  .dark {
+    --background: 352 63% 8%;
+    --foreground: 43 100% 83%;
+
+    --card: 352 63% 12%;
+    --card-foreground: 43 100% 83%;
+
+    --popover: 352 63% 12%;
+    --popover-foreground: 43 100% 83%;
+
+    --primary: 43 100% 83%;
+    --primary-foreground: 352 63% 20%;
+
+    --secondary: 352 50% 20%;
+    --secondary-foreground: 43 100% 83%;
+
+    --muted: 352 40% 25%;
+    --muted-foreground: 43 60% 70%;
+
+    --accent: 352 50% 25%;
+    --accent-foreground: 43 100% 83%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 43 100% 83%;
+
+    --border: 352 40% 25%;
+    --input: 352 40% 25%;
+    --ring: 43 100% 83%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  /* Text reveal animation */
+  .text-reveal {
+    @apply overflow-hidden;
+  }
+  
+  .text-reveal-inner {
+    @apply inline-block;
+    transform: translateY(100%);
+  }
+
+  /* Magnetic button effect */
+  .magnetic-btn {
+    @apply relative inline-flex items-center justify-center overflow-hidden transition-all duration-300;
+  }
+
+  /* Floating animation */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Duplicate text effect like madewithgsap */
+  .text-duplicate {
+    @apply relative;
+  }
+
+  .text-duplicate::after {
+    content: attr(data-text);
+    @apply absolute left-0 top-0 opacity-20;
+    transform: translate(2px, 2px);
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    @apply transition-all duration-500 ease-out;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-8px) scale(1.02);
+  }
+
+  /* Underline animation */
+  .link-underline {
+    @apply relative;
+  }
+
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-[2px] bg-foreground transition-all duration-300;
+  }
+
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+
+  /* Marquee */
+  .marquee {
+    animation: marquee 20s linear infinite;
+  }
+
+  /* Stagger children */
+  .stagger-children > * {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+@layer utilities {
+  /* Clip path animations */
+  .clip-reveal {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .clip-revealed {
+    clip-path: inset(0 0% 0 0);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-accent);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes reveal-up {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
